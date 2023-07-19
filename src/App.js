@@ -61,7 +61,7 @@ const App = () => {
         
       </div>
       </nav><br /><br /><br />
-      <button className='btn' style={{ border: "1px solid #1da58d", float: "right", left: "3%", position: "relative" }} onClick={() => { document.getElementById("myModal").style.display = "block"; document.getElementById("myModal").style.backdropFilter = "blur(5px)"; }}>Add Segment</button>
+      <button className='btn' style={{backgroundColor:"rgb(68 142 151)", color:"white", cursor:"pointer", border: "1px solid #1da58d", float: "right", left: "3%", position: "relative" }} onClick={() => { document.getElementById("myModal").style.display = "block"; document.getElementById("myModal").style.backdropFilter = "blur(5px)"; }}>Add Segment</button>
 
       <Modal
         setresults={setresults}
