@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Modal from './Modal';
-import ViewSegments from './ViewSegments'
+import ViewSegments from './ViewSegments';
 
 const initialOptions = [
   { label: 'First Name', value: 'first_name', type: 'user' },
@@ -15,39 +15,45 @@ const initialOptions = [
   { label: 'Engagement Level', value: 'engagement_level', type: 'group' }
 ];
 
-const App = () => {  
-  const [results, setresults] = useState('');
+const App = () => {
+  const [results, setResults] = useState('');
   const [segmentName, setSegmentName] = useState('');
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [newOption, setNewOption] = useState('');
   const [options, setOptions] = useState(initialOptions);
-  const deleteSelectedOption = (val) =>{
+
+  // Step 2: useEffect
+  useEffect(() => {
+    selectedOptions.length !== 0 ? document.querySelector(".selectedoptions").style.border = "2px solid rgb(35, 204, 225)" : document.querySelector(".selectedoptions").style.border = "0px";
+  }, [selectedOptions]);
+
+  // Step 3: useCallback
+  const deleteSelectedOption = useCallback((val) => {
     setSelectedOptions(prevOptions => prevOptions.filter(option => option.value !== val));
-    setOptions((option)=>[...option,...(initialOptions.filter(op => op.value === val))]);
-   }
- 
-   useEffect(()=>{
-     selectedOptions.length !== 0 ? document.querySelector(".selectedoptions").style.border = "2px solid rgb(35, 204, 225)"  :  document.querySelector(".selectedoptions").style.border = "0px"
-   },[selectedOptions])
-   const handleAddNewSchema = () => {
-     if(document.querySelector("#new_schema").classList.contains("hidden")===true){
-       document.querySelector("#new_schema").classList.remove("hidden");
-       setNewOption('');
-     }
-     else{
-       const selectedOption = options.find(option => option.value === newOption);
-       if (selectedOption) {
-         setSelectedOptions(prevOptions => [...prevOptions, selectedOption]);
-         setOptions(prevOptions => prevOptions.filter(option => option.value !== newOption));
-         setNewOption('');
-       }
-     }
-   };
-   const newOptions = () =>{
-     if(document.querySelector("#new_schema").classList.contains("hidden")===false){
-       document.querySelector("#new_schema").classList = "hidden";
-     }
-   }
+    setOptions((option) => [...option, ...(initialOptions.filter(op => op.value === val))]);
+  }, [initialOptions]);
+
+  // Step 4: useCallback
+  const handleAddNewSchema = useCallback(() => {
+    if (document.querySelector("#new_schema").classList.contains("hidden") === true) {
+      document.querySelector("#new_schema").classList.remove("hidden");
+      setNewOption('');
+    } else {
+      const selectedOption = options.find(option => option.value === newOption);
+      if (selectedOption) {
+        setSelectedOptions(prevOptions => [...prevOptions, selectedOption]);
+        setOptions(prevOptions => prevOptions.filter(option => option.value !== newOption));
+        setNewOption('');
+      }
+    }
+  }, [newOption, options]);
+
+  // Step 5: useCallback
+  const newOptions = useCallback(() => {
+    if (document.querySelector("#new_schema").classList.contains("hidden") === false) {
+      document.querySelector("#new_schema").classList = "hidden";
+    }
+  }, []);
 
   return (
     <div className='container'>
@@ -64,7 +70,7 @@ const App = () => {
       <button className='btn' style={{backgroundColor:"rgb(68 142 151)", color:"white", cursor:"pointer", border: "1px solid #1da58d", float: "right", left: "3%", position: "relative" }} onClick={() => { document.getElementById("myModal").style.display = "block"; document.getElementById("myModal").style.backdropFilter = "blur(5px)"; }}>Add Segment</button>
 
       <Modal
-        setresults={setresults}
+        setResults={setResults}
         setOptions={setOptions}
         initialOptions={initialOptions}
         setSelectedOptions={setSelectedOptions}
@@ -78,7 +84,7 @@ const App = () => {
         newOptions={newOptions}
         setNewOption={setNewOption}
       />
-    <ViewSegments results={results} setresults={setresults} />
+    <ViewSegments results={results} setResults={setResults} />
 
     </div>
   );
