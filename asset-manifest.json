@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/customerlabs-jana-react/static/css/main.28aa737c.css",
+    "main.css": "/customerlabs-jana-react/static/css/main.0ebc7bfc.css",
     "main.js": "/customerlabs-jana-react/static/js/main.f3cdfd28.js",
     "index.html": "/customerlabs-jana-react/index.html",
-    "main.28aa737c.css.map": "/customerlabs-jana-react/static/css/main.28aa737c.css.map",
+    "main.0ebc7bfc.css.map": "/customerlabs-jana-react/static/css/main.0ebc7bfc.css.map",
     "main.f3cdfd28.js.map": "/customerlabs-jana-react/static/js/main.f3cdfd28.js.map"
   },
   "entrypoints": [
-    "static/css/main.28aa737c.css",
+    "static/css/main.0ebc7bfc.css",
     "static/js/main.f3cdfd28.js"
   ]
 }
