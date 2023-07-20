@@ -6,6 +6,7 @@ import axios from 'axios';
 const Modal = ({ setResults, initialOptions, setOptions, setSelectedOptions, segmentName, selectedOptions, options, newOption, setSegmentName, handleAddNewSchema, deleteSelectedOption, newOptions, setNewOption }) => {
   const [segmentstatus, setSegmentStatus] = useState('');
   const [selectedstatus, setSelectedStatus] = useState('');
+  const [sentstatus, setsentstatus] = useState('');
   
   useEffect(() => {
     document.getElementById('myModal').style.display = 'none';
@@ -25,8 +26,12 @@ const Modal = ({ setResults, initialOptions, setOptions, setSelectedOptions, seg
 
       const fetchData = async () => {
         try {
-          const response = await axios.post('https://webhook.site/1caf0ede-ebbb-4333-a2d6-91377586c40c', data);
+          const response = await axios.post('https://webhook.site/9b46eca5-8ee1-4b9d-aeb8-b0717f5730de', data);
           console.log('Response:', response.data);
+          setsentstatus(response.data);
+          setTimeout(() => {
+            setsentstatus('');
+          }, 1800);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -58,7 +63,7 @@ const Modal = ({ setResults, initialOptions, setOptions, setSelectedOptions, seg
     </span>
   ), []);
 
-  // Rest of the code remains unchanged
+  
   return (
     <div id="myModal" className="modal position-relative" style={{display:"none"}}>
     <div className='modal-content'>   
@@ -82,6 +87,9 @@ const Modal = ({ setResults, initialOptions, setOptions, setSelectedOptions, seg
      <br />
 
           <SelectedOption
+        setOptions={setOptions}
+        initialOptions={initialOptions}
+        setSelectedOptions={setSelectedOptions}  
         selectedOptions={selectedOptions}
         options={options}
         deleteSelectedOption={deleteSelectedOption}
@@ -94,6 +102,7 @@ const Modal = ({ setResults, initialOptions, setOptions, setSelectedOptions, seg
         newOptions={newOptions}
       />
       <div className='status'>{selectedstatus}</div>
+      <div className='sentstatus' style={{color: "#26a126"}}>{sentstatus}</div>
       <label className='newschemalabl' onClick={handleAddNewSchema}>+ Add new schema</label>
     <button className='bottom-btn btn' id='save' onClick={handleSaveSegment}>Save the Segment</button>        <button className='bottom-btn cancel btn' id='cancel' onClick={()=>{document.getElementById("myModal").style.display="none";document.getElementById("myModal").style.backdropFilter="blur(0px)";}} >Cancel</button>
     </div>

@@ -22,18 +22,18 @@ const App = () => {
   const [newOption, setNewOption] = useState('');
   const [options, setOptions] = useState(initialOptions);
 
-  // Step 2: useEffect
+
   useEffect(() => {
     selectedOptions.length !== 0 ? document.querySelector(".selectedoptions").style.border = "2px solid rgb(35, 204, 225)" : document.querySelector(".selectedoptions").style.border = "0px";
   }, [selectedOptions]);
 
-  // Step 3: useCallback
+
   const deleteSelectedOption = useCallback((val) => {
     setSelectedOptions(prevOptions => prevOptions.filter(option => option.value !== val));
     setOptions((option) => [...option, ...(initialOptions.filter(op => op.value === val))]);
   }, [initialOptions]);
 
-  // Step 4: useCallback
+
   const handleAddNewSchema = useCallback(() => {
     if (document.querySelector("#new_schema").classList.contains("hidden") === true) {
       document.querySelector("#new_schema").classList.remove("hidden");
@@ -48,7 +48,7 @@ const App = () => {
     }
   }, [newOption, options]);
 
-  // Step 5: useCallback
+
   const newOptions = useCallback(() => {
     if (document.querySelector("#new_schema").classList.contains("hidden") === false) {
       document.querySelector("#new_schema").classList = "hidden";
